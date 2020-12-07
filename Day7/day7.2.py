@@ -1,18 +1,17 @@
 def part2():
     m = {}
+
     def parse_line(line):
         # Example lines:
         # faded blue bags contain no other bags.
         # light red bags contain 1 bright white bag, 2 muted yellow bags.
-        line = line.strip('.')
-        bag, contents = line.split(' bags contain ')
-        contents = contents.replace(
-            ' bags', '').replace(' bag', '').split(', ')
+        line = line.strip(".")
+        bag, contents = line.split(" bags contain ")
+        contents = contents.replace(" bags", "").replace(" bag", "").split(", ")
         # print(bag, contents)
-        if contents[0] == 'no other':
+        if contents[0] == "no other":
             contents = {}
-        contents = {' '.join(i.split()[1:]): int(
-            i.split()[0]) for i in contents}
+        contents = {" ".join(i.split()[1:]): int(i.split()[0]) for i in contents}
         # print(bag, contents)
         m[bag] = contents
 
@@ -25,9 +24,9 @@ def part2():
         contents = m[color]
         if contents == {}:
             return 0
-        return sum(count*(1 + num_inner_bags(bag)) for bag, count in contents.items())
+        return sum(count * (1 + num_inner_bags(bag)) for bag, count in contents.items())
 
-    print(num_inner_bags('shiny gold'))
+    print(num_inner_bags("shiny gold"))
 
 
 part2()
