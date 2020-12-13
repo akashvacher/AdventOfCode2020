@@ -1,14 +1,17 @@
+import math
+
+
 def part1():
     with open("in.txt") as f:
         start = int(f.readline())
-        buses = f.readline()
-    buses = [int(i) for i in buses.split(",") if i != "x"]
+        bus_ids = f.readline()
+    bus_ids = [int(i) for i in bus_ids.split(",") if i != "x"]
     m = None
-    for bus in buses:
-        wait_time = (bus - (start % bus)) % bus
-        m = m or (wait_time, bus)  # Initialise m if it is None
-        m = min(m, (wait_time, bus))
-    print(m[0] * m[1])
+    for bus_id in bus_ids:
+        wait_time = (bus_id - (start % bus_id)) % bus_id
+        m = m or (wait_time, bus_id)  # Initialise m if it is None
+        m = min(m, (wait_time, bus_id))
+    print(math.prod(m))
 
 
 part1()
