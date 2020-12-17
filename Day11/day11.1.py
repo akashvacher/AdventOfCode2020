@@ -4,16 +4,12 @@ from collections import Counter
 def part1():
     def get_neighbours(r, c, grid):
         R, C = len(grid), len(grid[0])
-        n = [
-            (r, c + 1),
-            (r, c - 1),
-            (r + 1, c),
-            (r + 1, c + 1),
-            (r + 1, c - 1),
-            (r - 1, c),
-            (r - 1, c + 1),
-            (r - 1, c - 1),
-        ]
+        n = []
+        for dx in range(-1, 2):
+            for dy in range(-1, 2):
+                if (dx, dy) == (0, 0):
+                    continue
+                n.append((r + dx, c + dy))
         return Counter(
             [
                 grid[i][j]

@@ -19,14 +19,11 @@ def part2():
                     x, y = x + inc_r, y + inc_c
             return n
 
-        n = include(0, 1, n, grid)
-        n = include(0, -1, n, grid)
-        n = include(1, 0, n, grid)
-        n = include(1, 1, n, grid)
-        n = include(1, -1, n, grid)
-        n = include(-1, 0, n, grid)
-        n = include(-1, 1, n, grid)
-        n = include(-1, -1, n, grid)
+        for dx in range(-1, 2):
+            for dy in range(-1, 2):
+                if (dx, dy) == (0, 0):
+                    continue
+                n = include(dx, dy, n, grid)
         return Counter(n)
 
     def tick(grid):
