@@ -41,13 +41,9 @@ def part2():
                         if cell == "#":
                             if 2 <= neighbours["#"] <= 3:
                                 new_state[(x, y, z, w)] = "#"
-                            else:
-                                new_state[(x, y, z, w)] = "."
                         else:
                             if neighbours["#"] == 3:
                                 new_state[(x, y, z, w)] = "#"
-                            else:
-                                new_state[(x, y, z, w)] = "."
         return new_state
 
     x = open("in.txt").read().split("\n")
