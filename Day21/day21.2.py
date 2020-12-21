@@ -29,7 +29,7 @@ def part2():
                     # Encountered this name for the first time
                     unfixed[name] = set(codes)
                 else:
-                    unfixed[name] = set(codes).intersection(unfixed[name])
+                    unfixed[name] = set(codes) & unfixed[name]
                 unfixed, fixed = refresh(unfixed, fixed)
 
     print(",".join(j for i, j in sorted(fixed.items(), key=lambda x: x[0])))

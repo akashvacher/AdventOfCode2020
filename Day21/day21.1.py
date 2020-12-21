@@ -31,7 +31,7 @@ def part1():
                     # Encountered this name for the first time
                     unfixed[name] = set(codes)
                 else:
-                    unfixed[name] = set(codes).intersection(unfixed[name])
+                    unfixed[name] = set(codes) & unfixed[name]
                 unfixed, fixed = refresh(unfixed, fixed)
 
     print(sum(count for code, count in freq.items() if code not in fixed.values()))
