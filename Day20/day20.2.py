@@ -83,7 +83,7 @@ def part2():
         return tile[-1]
 
     def flip(tile):
-        # Flip the tile around a horiztal axis
+        # Flip the tile around the horizontal axis
         return tile[::-1]
 
     def rotate_left(tile):
