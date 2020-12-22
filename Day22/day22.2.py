@@ -4,6 +4,13 @@ from collections import deque
 game_cache = {}
 
 
+def does_p1_win_for_sure(a, b):
+    # If the maximum value card among both these decks is present with
+    # player 1, then player 1 always wins. Otherwise, we don't know
+    # for sure and a sub-game simulation is required to determine the winner
+    return max(list(a) + list(b)) in a
+
+
 def play(a, b):
     # If this game has been played before, reuse the result
     if (tuple(a), tuple(b)) in game_cache:
@@ -23,10 +30,14 @@ def play(a, b):
         x, y = int(A.popleft()), int(B.popleft())
         if x <= len(A) and y <= len(B):
             # We need a subgame to decide the winner
-            b_won, _ = play(
-                deque(list(A)[:x]),
-                deque(list(B)[:y]),
-            )
+            sub_a, sub_b = deque(list(A)[:x]), deque(list(B)[:y])
+
+            # Short circuit if player1 is predestined to win
+            if does_p1_win_for_sure(sub_a, sub_b):
+                b_won = False
+            # otherwise, simulate the entire subgame
+            else:
+                b_won, _ = play(sub_a, sub_b)
         else:
             b_won = x < y
         if b_won:
