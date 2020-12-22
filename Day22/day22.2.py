@@ -9,35 +9,35 @@ def play(a, b):
     if (tuple(a), tuple(b)) in game_cache:
         return game_cache[(tuple(a), tuple(b))]
 
-    # preserve the original inputs
-    A, B = list(a), list(b)
+    # preserve the original args by making their copies
+    A, B = deque(a), deque(b)
     seen_rounds = set()
 
-    # Play rounds until one player runs out of cards
-    while len(a) > 0 and len(b) > 0:
+    # Play rounds until one player runs out of cards, or till we see a duplicate round
+    while len(A) > 0 and len(B) > 0:
         # If this round has been seen before in this game - player 1 wins
-        if (tuple(a), tuple(b)) in seen_rounds:
-            return (False, a)
+        if (tuple(A), tuple(B)) in seen_rounds:
+            return (False, A)
         else:
-            seen_rounds.add((tuple(a), tuple(b)))
-        x, y = int(a.popleft()), int(b.popleft())
-        if x <= len(a) and y <= len(b):
+            seen_rounds.add((tuple(A), tuple(B)))
+        x, y = int(A.popleft()), int(B.popleft())
+        if x <= len(A) and y <= len(B):
             # We need a subgame to decide the winner
             b_won, _ = play(
-                deque(list(a)[:x]),
-                deque(list(b)[:y]),
+                deque(list(A)[:x]),
+                deque(list(B)[:y]),
             )
         else:
             b_won = x < y
         if b_won:
-            b.append(y)
-            b.append(x)
+            B.append(y)
+            B.append(x)
         else:
-            a.append(x)
-            a.append(y)
-    result = (True, b) if len(b) else (False, a)
-    game_cache[(tuple(A), tuple(B))] = result
-    return game_cache[(tuple(A), tuple(B))]
+            A.append(x)
+            A.append(y)
+    result = (True, B) if len(B) else (False, A)
+    game_cache[(tuple(a), tuple(b))] = result
+    return game_cache[(tuple(a), tuple(b))]
 
 
 def score(x):
