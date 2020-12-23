@@ -8,8 +8,8 @@ def part1():
             rule, string = (i.strip() for i in line.split(":"))
             rule, ch = rule.split()
             min_count, max_count = (int(i) for i in rule.split("-"))
-            c = Counter(string)
-            if min_count <= c[ch] <= max_count:
+            count = Counter(string)
+            if min_count <= count[ch] <= max_count:
                 valid_rules += 1
     print(valid_rules)
 
